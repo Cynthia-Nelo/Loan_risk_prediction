@@ -1,90 +1,158 @@
-📊 Loan Risk Prediction Model
-A Machine Learning Solution for Fair and Transparent Loan Approval Decisions
+# 📊 Loan Risk Prediction Model
 
-https://img.shields.io/github/last-commit/Cynthia-Nelo/loan-risk-prediction
-https://img.shields.io/github/repo-size/Cynthia-Nelo/loan-risk-prediction
-https://img.shields.io/badge/Python-3.8%252B-blue
+## 🧾 Overview
+This project aims to build a robust and production-ready machine learning pipeline to predict loan applicant risk (`Risk_Flag`). The pipeline includes:
 
-🚀 Project Overview
-Financial institutions need data-driven, fair, and explainable AI models to assess loan applicant risk. This project delivers a production-ready machine learning pipeline that:
+- Data loading
+- Exploratory data analysis (EDA)
+- Preprocessing
+- Feature engineering
+- Model training and evaluation
+- Fairness analysis
 
-✅ Predicts whether an applicant is likely to default (Risk_Flag = 1)
-✅ Handles class imbalance using advanced resampling techniques
-✅ Ensures fairness across sensitive attributes (Age, Income, Location)
-✅ Optimizes for recall to minimize risky loan approvals
+### 🎯 Goal
+Classify applicants as either:
+- **1 → Risky** (likely to default)
+- **0 → Not Risky** (likely to repay)
 
-Built with Python, Scikit-learn, stacking ensemble, and fairness-aware techniques, this solution is designed for real-world lending scenarios.
+This solution is designed to support **risk-based decision-making** in financial institutions.
 
-🔍 Key Features
-📈 High-Performance Predictive Modeling
-Trained and optimized Logistic Regression, Random Forest, XGBoost, and Stacking Ensemble
+---
 
-F2-Score Optimization to prioritize recall of risky applicants
+## 📁 Dataset Description
+The dataset is divided into **training** and **test sets** (JSON format). Each record represents an individual loan applicant described by demographic and financial attributes.
 
-ROC AUC: 0.98 | Recall (Risk_Flag=1): 0.88
+| Feature              | Description                          |
+|----------------------|--------------------------------------|
+| `Id`                | Unique identifier                    |
+| `Income`            | Income level                         |
+| `Age`               | Applicant's age                      |
+| `Experience`        | Professional experience (years)      |
+| `Married/Single`    | Marital status                       |
+| `House_Ownership`   | Home ownership status                |
+| `Car_Ownership`     | Car ownership status                 |
+| `Profession`        | Occupation                           |
+| `CITY`              | City of residence                    |
+| `STATE`             | State of residence                   |
+| `CURRENT_JOB_YRS`   | Years at current job                 |
+| `CURRENT_HOUSE_YRS` | Years at current residence           |
+| `Risk_Flag`         | Target (1 = Risky, 0 = Not Risky)    |
 
-⚖️ Bias Mitigation & Fairness
-Subgroup fairness analysis (Age, Income, City, State)
+---
 
-Smote and ADASYN oversampling to handle class imbalance
+## ⚙️ Project Workflow
 
-Fairness metrics tracked: Demographic Parity, Equalized Odds, Disparate Impact Ratio
+### 1. Data Loading
+- Loaded using `pandas`
+- Parsed and validated JSON input
+- Ensured schema consistency
 
-🔄 End-to-End Pipeline
-Data Cleaning & EDA (Missing value handling, outlier detection)
+### 2. Exploratory Data Analysis (EDA)
+- Used histograms, boxplots, correlation heatmaps
+- Explored feature distributions and class imbalance
+- Categorical feature significance via Chi-squared tests
 
-Feature Engineering (Age bands, income groups, target encoding)
+### 3. Data Cleaning & Preprocessing
+- Handled missing values and outliers
+- Encoded categorical variables with `OneHotEncoder`
+- Scaled numerical features (`StandardScaler`)
+- Addressed class imbalance with **SMOTE** and **ADASYN**
 
-Model Training & Fairness Auditing
+### 4. Feature Engineering
+- Created derived features:
+  - Income-to-Age Ratio
+  - Employment Bands
+  - Housing Duration Bins
+- Selected features using correlation and importance scores
 
-Explainability (SHAP, LIME, model cards)
+### 5. Model Development
+Models trained:
+- Logistic Regression
+- Random Forest
+- XGBoost
+- Stacking Ensemble
 
-📂 Repository Structure
+> Tuned with `RandomizedSearchCV` and `StratifiedKFold`
+
+### 6. Evaluation Metrics
+- Accuracy
+- F1-Score
+- Precision
+- Recall
+- ROC AUC
+
+> ⚠️ **Focus on Accuracy and F1-Score** for final selection
+
+### 7. Bias & Fairness Analysis
+- Audited predictions by:
+  - Age groups
+  - Income levels
+  - Location (CITY, STATE)
+- Applied fairness strategies like:
+  - Equal opportunity checks
+  - Fair sampling and thresholding
+
+---
+
+## 📦 Installation & Requirements
+
+```bash
+pip install -r requirements.txt
+Core Libraries:
+
+pandas, numpy, matplotlib, seaborn
+
+scikit-learn
+
+xgboost
+
+imblearn
+
+▶️ How to Run
 bash
-loan-risk-prediction/  
-├── data/                    # Raw and processed datasets  
-├── notebooks/               # Jupyter notebooks (EDA, modeling)  
-│   ├── 01_Data_Cleaning_EDA_&_ Feature_Engeenering.ipynb    
-│   └── 02_Model_Training_Evaluation.ipynb  
-├── src/                     # Python scripts for pipeline  
-│   ├── preprocessing.py  
-│   ├── train.py  
-│   └── fairness_analysis.py  
-├── models/                  # Saved model artifacts  
-├── docs/                    # Fairness reports & model cards  
-├── requirements.txt         # Python dependencies  
-└── README.md  
-🛠️ Installation & Usage
-1. Clone the Repository
-bash
-git clone https://github.com/yourusername/loan-risk-prediction.git  
-cd loan-risk-prediction  
-2. Set Up a Virtual Environment
-bash
-python -m venv venv  
-source venv/bin/activate  # Linux/Mac  
-.\venv\Scripts\activate   # Windows  
-3. Install Dependencies
-bash
-pip install -r requirements.txt  
-4. Run the Pipeline
-bash
-python src/train.py  # Trains model and generates fairness report  
-📊 Results & Fairness Insights
-Model	F2-Score	ROC AUC	Recall (Risk=1)
-XGBoost	0.82	0.92	0.85
-Stacking	0.81	0.91	0.83
-Fairness Audit Highlights:
+Copy
+Edit
+# Clone repository
+git clone <your-repo-url>
+cd loan-risk-prediction
 
-No significant bias across age groups (p > 0.05)
+# Open notebook
+jupyter notebook Loan_risk_prediction_model.ipynb
+Follow steps to train models and submit predictions on test set.
 
-<5% disparity in approval rates between income brackets
+📈 Results Summary
+Model	Accuracy	F1-Score	ROC AUC
+Logistic Regression	61%	25%	62%
+Random Forest	86%	84%	97.6%
+XGBoost	86%	83%	97.5%
+Stacking Ensemble	94%	88%	97.7%
+
+🌟 Highlights
+End-to-end ML pipeline
+
+Strong visual insights via seaborn and matplotlib
+
+Stacking ensemble for top performance
+
+Cross-validation and hyperparameter tuning
+
+Bias detection and fairness evaluation
+
+🧠 Final Thoughts
+This project simulates a real-world financial risk scoring system, integrating:
+
+Model accuracy,
+
+Interpretability,
+
+Fairness in AI decision-making.
+
+🚀 Future Enhancements:
+Add SHAP/LIME for model explainability
+
+Deploy via API
+
+Schedule fairness audits in production
 
 📜 License
-This project is licensed under MIT. See LICENSE for details.
-
-💡 Built for Responsible AI in Finance
-https://via.placeholder.com/600x200?text=SHAP+Analysis+Example
-
-🔗 Connect with me: LinkedIn | Portfolio
-
+This project is released under the MIT License.
