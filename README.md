@@ -96,63 +96,72 @@ Models trained:
 
 ## 📦 Installation & Requirements
 
-```bash
-pip install -r requirements.txt
-Core Libraries:
+`pip install -r requirements.txt`
 
-pandas, numpy, matplotlib, seaborn
+## Core Libraries:
 
-scikit-learn
+- pandas, numpy, matplotlib, seaborn
+- scikit-learn
+- xgboost
+- imblearn
 
-xgboost
+## ▶️ How to Run
 
-imblearn
+```
+1. Clone the repository:
+   git clone <your-repo-url>
+   cd loan-risk-prediction
 
-▶️ How to Run
-bash
-Copy
-Edit
-# Clone repository
-git clone <your-repo-url>
-cd loan-risk-prediction
+2. Open the Jupyter notebook:
+   jupyter notebook Loan_risk_prediction.ipynb
+   jupyter notebook EDA_&_Feature_engeneering.ipynb
 
-# Open notebook
-jupyter notebook Loan_risk_prediction_model.ipynb
-Follow steps to train models and submit predictions on test set.
+3. Follow the steps in the notebook to:
+   - Preprocess data
+   - Train the models
+   - Evaluate performance
 
-📈 Results Summary
-Model	Accuracy	F1-Score	ROC AUC
-Logistic Regression	61%	25%	62%
-Random Forest	86%	84%	97.6%
-XGBoost	86%	83%	97.5%
-Stacking Ensemble	94%	88%	97.7%
+4. Submit predictions using the test dataset.
+```
 
-🌟 Highlights
-End-to-end ML pipeline
+## 📈 Results Summary
 
-Strong visual insights via seaborn and matplotlib
 
-Stacking ensemble for top performance
+| Model               | Accuracy | F1-Score | ROC AUC |
+|---------------------|----------|----------|---------|
+| `Logistic Regression` | 61%      | 25%      | 62%   |
+| `Random Forest`       | 89%      | 63%      | 94%   |
+| `XGBoost`             | 84%      | 58%      | 92%   |
+| `Stacking Ensemble`   | 94%      | 79%      | 98%   |
 
-Cross-validation and hyperparameter tuning
 
-Bias detection and fairness evaluation
 
-🧠 Final Thoughts
+## 🌟 Highlights
+- End-to-end ML pipeline
+
+- Strong visual insights via seaborn and matplotlib
+
+- Stacking ensemble for top performance
+
+- Cross-validation and hyperparameter tuning
+
+- Bias detection and fairness evaluation
+
+## 🧠 Final Thoughts
 This project simulates a real-world financial risk scoring system, integrating:
 
-Model accuracy,
+- Model accuracy,
 
-Interpretability,
+- Interpretability,
 
-Fairness in AI decision-making.
+- Fairness in AI decision-making.
 
-🚀 Future Enhancements:
-Add SHAP/LIME for model explainability
+## 🚀 Future Enhancements:
+- Add SHAP/LIME for model explainability
 
-Deploy via API
+- Deploy via API
 
-Schedule fairness audits in production
+- Schedule fairness audits in production
 
-📜 License
+## 📜 License
 This project is released under the MIT License.
